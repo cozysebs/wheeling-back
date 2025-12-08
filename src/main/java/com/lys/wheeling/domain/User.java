@@ -1,0 +1,89 @@
+package com.lys.wheeling.domain;
+
+import com.lys.wheeling.domain.elist.Category;
+import com.lys.wheeling.domain.elist.Gender;
+import com.lys.wheeling.domain.elist.Role;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String name;
+
+    private String bio;
+
+    private int age;
+
+    private String tel;
+
+    @Column(name = "birth_date")
+    private LocalDateTime birthDate;
+
+    @Column(name = "profile_picture")
+    private String profilePicture;
+
+    @Transient
+    private String token;
+
+    @CreatedDate
+    @Column(updatable = false)
+    protected LocalDateTime createdAt;
+
+    @LastModifiedDate
+    protected LocalDateTime updatedAt = LocalDateTime.now();
+
+    // 열거형
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Category category;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    //OneToMany
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<GameSession> gameSession;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Bookmark> bookmark;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Like> like;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Reply> reply;
+
+
+}
