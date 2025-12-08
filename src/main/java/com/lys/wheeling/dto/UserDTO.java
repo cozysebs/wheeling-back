@@ -19,9 +19,9 @@ public class UserDTO {
     private String username;
     private String password;
     private String name;
+    private String tel;
     private String bio;
     private int age;
-    private String tel;
     private Category category;
     private Role role;
     private Gender gender;

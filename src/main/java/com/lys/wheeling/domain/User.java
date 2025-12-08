@@ -38,6 +38,7 @@ public class User {
 
     private int age;
 
+    @Column(nullable = false, unique = true)
     private String tel;
 
     @Column(name = "birth_date")
@@ -51,10 +52,10 @@ public class User {
 
     @CreatedDate
     @Column(updatable = false)
-    protected LocalDateTime createdAt;
+    protected LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
-    protected LocalDateTime updatedAt = LocalDateTime.now();
+    protected LocalDateTime updatedAt;
 
     // 열거형
     @Enumerated(EnumType.STRING)
@@ -62,7 +63,6 @@ public class User {
     private Role role;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Category category;
 
     @Enumerated(EnumType.STRING)
