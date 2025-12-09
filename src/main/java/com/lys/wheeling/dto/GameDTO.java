@@ -1,5 +1,7 @@
 package com.lys.wheeling.dto;
 
+import com.lys.wheeling.domain.elist.Category;
+import com.lys.wheeling.domain.elist.Difficulty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,5 +18,8 @@ public class GameDTO {
     private String title;
     private String description;
     private String componentKey;
+    private String thumbnailUrl;
+    private Category category;
+    private Difficulty difficulty;
 
 }

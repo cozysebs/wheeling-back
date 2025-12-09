@@ -6,11 +6,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @ToString
@@ -24,6 +26,7 @@ public class Game {
     @Column(name = "game_id")
     private Long gameId;
 
+    @Column(nullable = false, unique=true)
     private String slug;    //게임을 식별하는 문자열
 
     @Column(nullable = false)
@@ -31,17 +34,16 @@ public class Game {
 
     private String description;
 
-    private String componentKey;
+    private String componentKey;    // React 쪽에서 사용할 component 식별자
 
     @Column(name = "thumbnail_url")
     private String thumbnailUrl;
 
     @CreatedDate
-    @Column(updatable = false)
-    protected LocalDateTime releasedAt;
+    protected LocalDateTime releasedAt = LocalDateTime.now();
 
     @LastModifiedDate
-    protected LocalDateTime updatedAt = LocalDateTime.now();
+    protected LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
