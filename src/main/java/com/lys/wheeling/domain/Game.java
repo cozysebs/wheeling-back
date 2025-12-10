@@ -57,7 +57,7 @@ public class Game {
             cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<GameSession> gameSession;
 
-    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY,
+    @OneToOne(mappedBy = "game", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Post> post;
+    private Post post;
 }

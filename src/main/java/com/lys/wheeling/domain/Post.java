@@ -22,8 +22,8 @@ public class Post {
     @Column(name = "post_id")
     private Long postId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id", unique = true)
     private Game game;
 
     private String caption;

@@ -14,7 +14,12 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "likes")  // 엔티티명이 MySQL 예약어인 like와 충돌해서 이름을 따로 지정함.
+@Table(
+        name = "likes", // 엔티티명이 MySQL 예약어인 like와 충돌해서 이름을 따로 지정함.
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"user_id", "post_id"})
+        }
+)
 public class Like {
 
     @Id

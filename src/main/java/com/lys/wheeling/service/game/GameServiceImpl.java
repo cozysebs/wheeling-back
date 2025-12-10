@@ -1,8 +1,10 @@
 package com.lys.wheeling.service.game;
 
 import com.lys.wheeling.domain.Game;
+import com.lys.wheeling.domain.Post;
 import com.lys.wheeling.dto.GameDTO;
 import com.lys.wheeling.repository.GameRepository;
+import com.lys.wheeling.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
+    private final PostRepository postRepository;
 
     // DTO <-> Entity 매핑 유틸
     private GameDTO entityToDTO(Game game) {
@@ -54,6 +57,28 @@ public class GameServiceImpl implements GameService {
         return target;
     }
 
+    // 주어진 Game에 연결된 Post가 없다면 새로 생성한다.
+    private void ensurePostForGame(Game game){
+        if (game == null) { return; }
+
+        if (game.getPost() != null) { return; }
+
+        // 양방향 매핑이 깨져있을 경우를 대비해 Repository로 재확인
+        if (postRepository.findByGame(game).isPresent()) { return; }
+
+        //Game에 Post가 아직 없는 상태
+        Post post = new Post();
+
+        // 1:1 연관관계 설정
+        post.setGame(game);
+        game.setPost(post);     // 양방향일 경우 역방향도 함께 세팅
+
+        // 기본 캡션은 Game 정보에서 끌어오기
+        post.setCaption(game.getDescription());
+
+        postRepository.save(post);
+    }
+
     // 단일 저장 (slug 기준 upsert)
     @Override
     public GameDTO saveGame(GameDTO dto) {
@@ -65,6 +90,10 @@ public class GameServiceImpl implements GameService {
 
         Game saved = gameRepository.save(toSave);
         log.info("Saved game: slug={}, id={}", saved.getSlug(), saved.getGameId());
+
+        // Game과 Post 1:1 보정
+        ensurePostForGame(saved);
+
         return entityToDTO(saved);
     }
 
