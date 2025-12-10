@@ -17,7 +17,7 @@ public class GameDTO {
     private String slug;
     private String title;
     private String description;
-    private String componentKey;
+    private String component;
     private String thumbnailUrl;
     private Category category;
     private Difficulty difficulty;

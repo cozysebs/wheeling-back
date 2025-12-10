@@ -13,7 +13,7 @@ import java.util.List;
 @Log4j2
 @RequestMapping("/api/games")
 @RequiredArgsConstructor
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 public class GameController {
 
     private final GameService gameService;

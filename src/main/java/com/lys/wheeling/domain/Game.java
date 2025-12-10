@@ -34,7 +34,7 @@ public class Game {
 
     private String description;
 
-    private String componentKey;    // React 쪽에서 사용할 component 식별자
+    private String component;    // React 쪽에서 사용할 component 식별자
 
     @Column(name = "thumbnail_url")
     private String thumbnailUrl;

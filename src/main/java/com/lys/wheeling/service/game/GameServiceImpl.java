@@ -30,7 +30,7 @@ public class GameServiceImpl implements GameService {
                 .slug(game.getSlug())
                 .title(game.getTitle())
                 .description(game.getDescription())
-                .componentKey(game.getComponentKey())
+                .component(game.getComponent())
                 .thumbnailUrl(game.getThumbnailUrl())
                 .category(game.getCategory())
                 .difficulty(game.getDifficulty())
@@ -44,10 +44,12 @@ public class GameServiceImpl implements GameService {
         target.setSlug(dto.getSlug());
         target.setTitle(dto.getTitle());
         target.setDescription(dto.getDescription());
-        target.setComponentKey(dto.getComponentKey());
+        target.setComponent(dto.getComponent());
         target.setThumbnailUrl(dto.getThumbnailUrl());
         target.setCategory(dto.getCategory());
         target.setDifficulty(dto.getDifficulty());
+        log.info("dtoGetSlug : {}", dto.getSlug());
+        log.info("dtoGetDifficulty : {}", dto.getDifficulty());
 
         return target;
     }
@@ -72,6 +74,7 @@ public class GameServiceImpl implements GameService {
         if(gameDTOs == null || gameDTOs.isEmpty()){
             return List.of();
         }
+        log.info("Here! GameDTOs: {}", gameDTOs);
         return gameDTOs.stream()
                 .map(this::saveGame)
                 .collect(Collectors.toList());

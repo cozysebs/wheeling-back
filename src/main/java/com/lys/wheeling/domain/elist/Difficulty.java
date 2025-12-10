@@ -1,5 +1,5 @@
 package com.lys.wheeling.domain.elist;
 
 public enum Difficulty {
-    EAZY, NORMAL, HARD
+    EASY, NORMAL, HARD
 }
