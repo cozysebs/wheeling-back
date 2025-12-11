@@ -3,6 +3,7 @@ package com.lys.wheeling.security;
 import com.lys.wheeling.domain.User;
 import com.lys.wheeling.repository.UserRepository;
 import com.lys.wheeling.security.utils.SecurityUtils;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +30,7 @@ public class CustomUserDetailService implements UserDetailsService {
         Set<GrantedAuthority> authorities = Set.of(SecurityUtils.convertToAuthority(user.getRole().name()));
 
         return UserPrincipal.builder()
+                .userId(user.getUserId())
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .authorities(authorities)

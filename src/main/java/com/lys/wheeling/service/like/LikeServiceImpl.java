@@ -28,6 +28,7 @@ public class LikeServiceImpl implements LikeService {
     // 게임(slug) 기준으로 좋아요 토글. 없다면 생성, 이미 있다면 삭제
     @Override
     public LikeDTO toggleLikeForGame(String gameSlug, Long userId) {
+
         // 1) Game 조회
         Game game = gameRepository.findBySlug(gameSlug)
                 .orElseThrow(() -> new EntityNotFoundException("Game not found: " + gameSlug));
@@ -80,6 +81,7 @@ public class LikeServiceImpl implements LikeService {
     @Override
     @Transactional(readOnly = true)
     public LikeDTO getLikeInfoForGame(String gameSlug, Long userId) {
+        log.info("LikeServiceImpl: {}, {}", gameSlug,  userId);
         // 1) Game 조회
         Game game = gameRepository.findBySlug(gameSlug)
                 .orElseThrow(() -> new EntityNotFoundException("Game not found: " + gameSlug));

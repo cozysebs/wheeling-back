@@ -40,6 +40,7 @@ public class JwtProviderImpl implements JwtProvider {
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .claim("roles", authorities)
+                .claim("userId", userPrincipal.getUserId())     // 추가함
                 .setExpiration(new Date(System.currentTimeMillis()+JWT_EXPIRATION_IN_MS))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
@@ -48,6 +49,7 @@ public class JwtProviderImpl implements JwtProvider {
     @Override
     public Authentication getAuthentication(HttpServletRequest request) {
         Claims claims = extractClaims(request);
+        log.info("getClaims : {}", claims);
         if(claims == null) {
             return null;
         }
@@ -79,6 +81,8 @@ public class JwtProviderImpl implements JwtProvider {
 
     private Claims extractClaims(HttpServletRequest request) {
         String token = SecurityUtils.extractAuthTokenFromRequest(request);
+        log.info("getRequest : {}", request);
+        log.info("getToken : {}", token);
         if(token == null){
             return null;
         }

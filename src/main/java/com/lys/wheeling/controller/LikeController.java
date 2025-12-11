@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/games")
 @Log4j2
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
+@CrossOrigin(origins = "*")
 public class LikeController {
 
     private final LikeService likeService;
@@ -24,8 +25,15 @@ public class LikeController {
     @PostMapping("/{slug}/likes/toggle")
     public ResponseEntity<LikeDTO> toggleLike(@PathVariable("slug") String slug,
                                               Authentication authentication) {
-        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+
+        // 인증 객체 null/타입 체크
+        if (authentication == null || !(authentication.getPrincipal() instanceof UserPrincipal principal)){
+            return ResponseEntity.status(401).build();
+        }
+//        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
         Long userId = principal.getUserId();
+
+        log.info("toggleLikeUserId: " + userId);
 
         LikeDTO dto = likeService.toggleLikeForGame(slug, userId);
         return ResponseEntity.ok(dto);
@@ -41,6 +49,7 @@ public class LikeController {
             userId = principal.getUserId();
         }
 
+        log.info("LikeController: {}, {}", slug,  userId);
         LikeDTO dto = likeService.getLikeInfoForGame(slug, userId);
         return ResponseEntity.ok(dto);
     }
