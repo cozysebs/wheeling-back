@@ -1,5 +1,6 @@
 package com.lys.wheeling.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comments;
@@ -27,6 +28,7 @@ public class Reply {
     @Column(nullable = false)
     private String content;
 
+//    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

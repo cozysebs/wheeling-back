@@ -1,5 +1,6 @@
 package com.lys.wheeling.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import lombok.*;
@@ -27,6 +28,7 @@ public class Like {
     @Column(name = "like_id")
     private Long likeId;
 
+//    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

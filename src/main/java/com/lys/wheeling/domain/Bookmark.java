@@ -1,5 +1,6 @@
 package com.lys.wheeling.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,6 +27,7 @@ public class Bookmark {
     @Column(name = "bookmark_id")
     private Long bookmarkId;
 
+//    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

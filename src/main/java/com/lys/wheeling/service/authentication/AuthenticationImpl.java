@@ -29,6 +29,7 @@ public class AuthenticationImpl implements AuthenticationService {
         log.info("CheckJWT: {}", jwt);
         User signInUser = userPrincipal.getUser();
         signInUser.setToken(jwt);
+//        signInUser.setPassword(null);
         return signInUser;
     }
 }

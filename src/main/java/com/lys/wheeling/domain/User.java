@@ -1,5 +1,6 @@
 package com.lys.wheeling.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lys.wheeling.domain.elist.Category;
 import com.lys.wheeling.domain.elist.Gender;
 import com.lys.wheeling.domain.elist.Role;
@@ -15,6 +16,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+//@ToString(exclude = {"password", "gameSession",
+//        "bookmark", "like", "reply"})
 @ToString
 @Builder
 @NoArgsConstructor
@@ -29,6 +32,7 @@ public class User {
     private String username;
 
     @Column(nullable = false)
+//    @JsonIgnore
     private String password;
 
     @Column(nullable = false)
@@ -69,18 +73,22 @@ public class User {
     private Gender gender;
 
     //OneToMany
+//    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<GameSession> gameSession;
 
+//    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Bookmark> bookmark;
 
+//    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Like> like;
 
+//    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Reply> reply;
