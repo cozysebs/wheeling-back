@@ -11,13 +11,13 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@ToString(exclude = { "gameSession",
-        "bookmark", "like", "reply"})
+@ToString(exclude = { "gameSession", "bookmark", "like", "reply"})
 //@ToString
 @Builder
 @NoArgsConstructor
@@ -72,6 +72,17 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    // ✅ 다중 선호 카테고리(우선순위 유지)
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+            name = "user_favorite_categories",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @OrderColumn(name = "preference_rank") // 0이 1순위
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category", nullable = false)
+    private List<Category> favoriteCategories = new ArrayList<>();
 
     //OneToMany
     @JsonIgnore

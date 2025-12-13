@@ -2,28 +2,21 @@ package com.lys.wheeling.dto;
 
 import com.lys.wheeling.domain.elist.Category;
 import com.lys.wheeling.domain.elist.Gender;
-import com.lys.wheeling.domain.elist.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
-    private Long userId;
-    private String username;
-    private String password;
-    private String name;
-    private String tel;
-    private String bio;
-    private int age;
-    private Category category;
-    private Role role;
+public class UserProfileUpdateRequestDTO {
+    private LocalDateTime birthDate;
     private Gender gender;
-    private LocalDateTime createdAt;
+    private List<Category> favoriteCategories; // 순서가 곧 랭킹
+    private String bio;
 }
