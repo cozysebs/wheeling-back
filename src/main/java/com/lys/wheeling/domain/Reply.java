@@ -28,7 +28,8 @@ public class Reply {
     @Column(nullable = false)
     private String content;
 
-//    @JsonIgnore
+    @JsonIgnore
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

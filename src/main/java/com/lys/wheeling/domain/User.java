@@ -16,9 +16,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-//@ToString(exclude = {"password", "gameSession",
-//        "bookmark", "like", "reply"})
-@ToString
+@ToString(exclude = { "gameSession",
+        "bookmark", "like", "reply"})
+//@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -52,6 +52,7 @@ public class User {
     private String profilePicture;
 
     @Transient
+//    @JsonIgnore
     private String token;
 
     @CreatedDate
@@ -73,22 +74,22 @@ public class User {
     private Gender gender;
 
     //OneToMany
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<GameSession> gameSession;
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Bookmark> bookmark;
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Like> like;
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Reply> reply;

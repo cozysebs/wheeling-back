@@ -26,7 +26,8 @@ public class GameSession {
     @JoinColumn(name = "game_id")
     private Game game;
 
-//    @JsonIgnore
+    @JsonIgnore
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

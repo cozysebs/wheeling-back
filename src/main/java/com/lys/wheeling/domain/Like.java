@@ -28,7 +28,8 @@ public class Like {
     @Column(name = "like_id")
     private Long likeId;
 
-//    @JsonIgnore
+    @JsonIgnore
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

@@ -27,7 +27,8 @@ public class Bookmark {
     @Column(name = "bookmark_id")
     private Long bookmarkId;
 
-//    @JsonIgnore
+    @JsonIgnore
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
