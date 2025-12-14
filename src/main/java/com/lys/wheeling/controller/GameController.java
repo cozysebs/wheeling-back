@@ -1,10 +1,13 @@
 package com.lys.wheeling.controller;
 
 import com.lys.wheeling.dto.GameDTO;
+import com.lys.wheeling.security.UserPrincipal;
 import com.lys.wheeling.service.game.GameService;
+import com.lys.wheeling.service.recommendation.RecommendationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +20,15 @@ import java.util.List;
 public class GameController {
 
     private final GameService gameService;
+    private final RecommendationService recommendationService;
+
+    // 추천 게임 로드
+    @GetMapping("/recommendations")
+    public ResponseEntity<List<GameDTO>> getRecommendations( @AuthenticationPrincipal
+                                                                 UserPrincipal principal) {
+        Long viewerUserId = (principal != null) ? principal.getUserId() : null;
+        return ResponseEntity.ok(recommendationService.getRecommendations(viewerUserId));
+    }
 
     // 프론트의 gamesConfig 전체 동기화용. React에서 gamesConfig 배열을 그대로 POST
     @PostMapping("/sync")

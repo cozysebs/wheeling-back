@@ -31,18 +31,5 @@ public class UserProfileViewDTO {
 
     // viewer가 본인인지(프론트에서 edit 버튼 노출 판단)
     private boolean owner;
-
-//    private Long userId;
-//    private String username;
-//    private String password;
-//    private String name;
-//    private String tel;
-//    private String bio;
-//    private int age;
-//    private LocalDateTime birthDate;
-//    private Category category;
-//    private Role role;
-//    private Gender gender;
-//    private LocalDateTime createdAt;
 }
 

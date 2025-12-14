@@ -1,4 +1,7 @@
 package com.lys.wheeling.repository;
 
-public interface RecommendationMultiplierRepository {
+import com.lys.wheeling.domain.RecommendationMultiplier;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RecommendationMultiplierRepository extends JpaRepository<RecommendationMultiplier, Integer> {
 }
